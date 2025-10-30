@@ -7,34 +7,50 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./public/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/style.css">
   </head>
   <body>
-    <header>
-      <h1>Metric/Imperial Converter</h1>
-    </header>
-    <hr style='margin: 50px'>
-    <section>
-      <h3>Example usage</h3>
-      <code>/api/convert?input=4gal</code><br>
-      <code>/api/convert?input=1/2km</code><br>
-      <code>/api/convert?input=5.4/3lbs</code><br>
-      <code>/api/convert?input=kg</code><br>
-      <h3>Example return</h3>
-      <code>{ initNum: 3.1, initUnit: 'mi', returnNum: 4.98895, returnUnit: 'km', string: '3.1 miles converts to 4.98895 kilometers' }</code>
-    </section>
-    <hr style='margin: 50px'>
-    <section>
-      <div id='testui' >
-        <h3 style="text-align: left">Front-End</h3>
-        <form id="convertForm" class="border">
-          <input type="text" id="convertField" name="input" placeholder="3.1mi" style="width: 200px">
-          <input id="convert" type="submit" value='Convert!'>
-        </form>
-        <p id='result'></p>
-        <code id='jsonResult'></code>
-      </div>
-    </section>
+    <div class="page">
+      <header class="page-header">
+        <div class="app-icon" aria-hidden="true">↔︎</div>
+        <div>
+          <h1 class="title">Metric / Imperial Converter</h1>
+          <p class="subtitle">Convierte valores entre unidades con un clic</p>
+        </div>
+      </header>
+
+      <main class="content">
+        <section class="card">
+          <h2 class="card-title">Conversión rápida</h2>
+          <form id="convertForm" class="form">
+            <label for="convertField" class="label">Entrada</label>
+            <div class="input-row">
+              <input type="text" id="convertField" name="input" placeholder="Ej: 3.1mi, 4gal, 1/2km" class="input" autocomplete="off">
+              <button id="convert" type="submit" class="button">Convertir</button>
+            </div>
+          </form>
+          <div class="result">
+            <p id="result" class="result-text"></p>
+            <pre class="code"><code id="jsonResult"></code></pre>
+          </div>
+        </section>
+
+        <section class="card secondary">
+          <h3 class="card-subtitle">Ejemplos</h3>
+          <div class="examples">
+            <code>/api/convert?input=4gal</code>
+            <code>/api/convert?input=1/2km</code>
+            <code>/api/convert?input=5.4/3lbs</code>
+            <code>/api/convert?input=kg</code>
+          </div>
+          <h3 class="card-subtitle">Respuesta de ejemplo</h3>
+          <code class="block">{ initNum: 3.1, initUnit: 'mi', returnNum: 4.98895, returnUnit: 'km', string: '3.1 miles converts to 4.98895 kilometers' }</code>
+        </section>
+      </main>
+    </div>
     <!-- Your web-app is https, so your scripts need to be too -->
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"
             integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
@@ -49,7 +65,7 @@
             data: $('#convertForm').serialize(),
             success: function(data) {
               $('#result').text(data.string || data);
-              $('#jsonResult').text(JSON.stringify(data));
+              $('#jsonResult').text(JSON.stringify(data, null, 2));
             }
           });
         });
